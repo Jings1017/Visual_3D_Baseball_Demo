@@ -15,49 +15,6 @@ class Visual3DSwing:
         fps = 30
         video = cv2.VideoWriter(output_video, fourcc, fps, size)
         return video
-    
-    def draw_env_for_bullpen(self, ax):
-        # pitch mound
-        pitch_x = [0, 0, -15, -15, 0]
-        pitch_y = [30, -30, -30, 30, 30]
-        pitch_z = [0, 0, 0, 0, 0]
-        ax.plot(pitch_x, pitch_y, pitch_z, color='black', linewidth=1)
-
-        #home plate
-        mound_distance = 1844
-        home_plate_x = [mound_distance, mound_distance, mound_distance + 22, \
-                        mound_distance + 43, mound_distance + 22, mound_distance]
-        home_plate_y = [-22, 22, 22, 0, -22, -22]
-        home_plate_z = [0, 0, 0, 0, 0, 0]
-        ax.plot(home_plate_x, home_plate_y, home_plate_z, color='black', linewidth=1)
-
-        # strike zone
-        batter_height = [70, 140] # height of knee and shoulder (unit in cm) 
-        strike_center_x = mound_distance + 21.5
-        strike_center_z = (batter_height[0] + batter_height[1]) / 2
-        ax.scatter3D(strike_center_x, 0, strike_center_z, marker='.', color='red')
-        strike_zone_bottom_z = [batter_height[0]] * 6
-        ax.plot(home_plate_x, home_plate_y, strike_zone_bottom_z, color='blue', linewidth=1)
-        strike_zone_top_z = [batter_height[1]] * 6
-        ax.plot(home_plate_x, home_plate_y, strike_zone_top_z, color='blue', linewidth=1)
-
-        for i in range(6):
-            ax.plot([home_plate_x[i], home_plate_x[i]], [home_plate_y[i], home_plate_y[i]],
-                           [strike_zone_bottom_z[i], strike_zone_top_z[i]], color='blue', linewidth=1)
-
-    def plot_setting_for_bullpen(self, ax):
-        ax.set_xlim(-50, 2000)
-        ax.set_ylim(-300, 300)
-        ax.set_zlim(0, 350)
-        ax.set_box_aspect([1, 0.5, 0.2])
-        ax.set_xlabel('x', fontsize=7)
-        ax.set_ylabel('y', fontsize=7)
-        ax.set_zlabel('z', fontsize=7)
-        ax.tick_params(axis='x', labelsize=7)
-        ax.tick_params(axis='y', labelsize=7)
-        ax.tick_params(axis='z', labelsize=7)
-        ax.invert_yaxis()
-        ax.view_init(10, 130)
 
     def show_3D(
         self,
